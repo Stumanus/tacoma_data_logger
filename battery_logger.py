@@ -82,3 +82,5 @@ if 'battery' not in tables:
 
 placeholders = ('?, ' * len(data))[:-2]
 cur.execute(f'INSERT INTO battery VALUES({placeholders})',data_tuple)
+conn.commit()
+conn.close()

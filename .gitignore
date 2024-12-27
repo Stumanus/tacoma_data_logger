@@ -4,3 +4,6 @@ include/
 lib/
 lib64
 pyvenv.cfg
+db_test.py
+test.db
+test.py
