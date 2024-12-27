@@ -1,0 +1,5 @@
+epevermodbus==0.0.18
+minimalmodbus==2.1.1
+pyserial==3.5
+retrying==1.3.4
+six==1.17.0
