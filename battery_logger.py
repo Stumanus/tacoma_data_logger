@@ -21,7 +21,7 @@ def main():
                 'load_power_W' : f'{controller.get_load_power()}',
                 'battery_voltage_V' : f'{controller.get_battery_voltage()}',
                 'battery_current_A' : f'{controller.get_battery_current()}',
-                'battery_power_W' : f'controller.get_battery_power()}',
+                'battery_power_W' : f'{controller.get_battery_power()}',
                 'battery_soc_%' : f'{controller.get_battery_state_of_charge()}',
                 'battery_temp_C' : f'{controller.get_battery_temperature()}',
                 'remote_battery_temp_C' : f'{controller.get_remote_battery_temperature()}',
@@ -30,7 +30,7 @@ def main():
                 'min_batt_voltage_today_V' : f'{controller.get_minimum_battery_voltage_today()}'
                 'max_pv_voltage_today_V' : f'{controller.get_maximum_pv_voltage_today()}',
                 'min_pv_voltage_today_V' : f'{controller.get_minimum_pv_voltage_today()}',
-                'energy_consumed_today_kWh' : f'controller.get_consumed_energy_today()}',
+                'energy_consumed_today_kWh' : f'{controller.get_consumed_energy_today()}',
                 'energy_consumed_this_month_kWh' : f'{controller.get_consumed_energy_this_month()}',
                 'energy_consumed_this_year_kWh' : f'{controller.get_consumed_energy_this_year()}',
                 'energy_consumed_total_kWh' : f'{controller.get_total_consumed_energy()}',
@@ -44,17 +44,16 @@ def main():
         battery_status = controller.get_battery_status()
         charging_equipment_status = controller.get_charging_equipment_status()
         discharging_equipment_status = controller.get_discharging_equipment_status()
+
         equip_data = {
                 'current_device_time' : f'{controller.get_rtc()}',
-                'device_overtemp_status' : f'controller.is_device_over_temperature()}',
-                
-                #Battery Status Items
+                'device_overtemp_status' : f'{controller.is_device_over_temperature()}',
+                #Battery Status
                 'wrong_id_for_rated_voltage' : battery_status['wrong_identification_for_rated_voltage'],
                 'battery_inner_resistance_abnormal' : battery_status['battery_inner_resistence_abnormal'],
                 'temperature_warning_status' : battery_status['temperature_warning_status'],
                 'battery_status' : battery_status['battery_status'],
-
-                #Charging Equipment Items
+                #Charging Equipment Status 
                 'charging_status' : charging_equipment_status['charging_status'],
                 'charging_input_voltage_status' : charging_equipment_status['input_voltage_status'],
                 'charging_mosfet_is_short_circuit' : charging_equipment_status['charging_mosfet_is_short_circuit'],
@@ -67,27 +66,26 @@ def main():
                 'disequilibrium_in_three_circuits' : charging_equipment_status['disequilibrium_in_three_circuits'],
                 'pv_input_short_circuit' : charging_equipment_status['pv_input_short_circuit'],
                 'charge_running' : charging_equipment_status['running'],
-
-                #Discharging Equipment Items
-                'discharging_input_voltage_status' : discharging_equipment_status['input_voltage_status'], 
-                'output_power_load' : discharging_equipment_status['output_power_load'], 
-                'short_circuit' : discharging_equipment_status['short_circuit'], 
-                'unable_to_discharge' : discharging_equipment_status['unable_to_discharge'], 
-                'unable_to_stop_discharging' : discharging_equipment_status['unable_to_stop_discharging'], 
-                'output_voltage_abnormal' : discharging_equipment_status['output_voltage_abnormal'], 
-                'input_over_voltage' : discharging_equipment_status['input_over_voltage'], 
-                'short_circuit_in_high_voltage_side' : discharging_equipment_status['short_circuit_in_high_voltage_side'], 
-                'boost_over_voltage' : discharging_equipment_status['boost_over_voltage'], 
-                'output_over_voltage' : discharging_equipment_status['output_over_voltage'], 
-                'discharge_fault' : discharging_equipment_status['fault'], 
-                'discharge_running' : discharging_equipment_status['running'] 
+                #Discharging Equipment Status
+                'discharging_input_voltage_status' : discharging_equipment_status['input_voltage_status'],
+                'output_power_load' : discharging_equipment_status['output_power_load'],
+                'short_circuit' : discharging_equipment_status['short_circuit'],
+                'unable_to_discharge' : discharging_equipment_status['unable_to_discharge'],
+                'unable_to_stop_discharging' : discharging_equipment_status['unable_to_stop_discharging'],
+                'output_voltage_abnormal' : discharging_equipment_status['output_voltage_abnormal'],
+                'input_over_voltage' : discharging_equipment_status['input_over_voltage'],
+                'short_circuit_in_high_voltage_side' : discharging_equipment_status['short_circuit_in_high_voltage_side'],
+                'boost_over_voltage' : discharging_equipment_status['boost_over_voltage'],
+                'output_over_voltage' : discharging_equipment_status['output_over_voltage'],
+                'discharge_fault' : discharging_equipment_status['fault'],
+                'discharge_running' : discharging_equipment_status['running']
         }
 
         data_tuple = tuple(list(data.values()))
-        column_tuple = tuple(list(data.keys()))    
+        column_tuple = tuple(list(data.keys()))
 
         equip_data_tuple = tuple(list(equip_data.values()))
-        equip_column_tuple = tuple(list(equip_data.keys()))    
+        equip_column_tuple = tuple(list(equip_data.keys()))
 
         conn = sqlite3.connect('battery.db')
         cur = conn.cursor()

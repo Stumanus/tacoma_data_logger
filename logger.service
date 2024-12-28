@@ -1,0 +1,14 @@
+[Unit]
+Description=Python script for logging data from epever controller
+After=network.target
+
+[Service]
+ExecStart=/home/stu/battery_logger.py
+Restart=always
+RestartSec=5
+User=stu
+WorkingDirectory=/home/stu/
+Environment="PYTHONBUFFERED=1"
+
+[Install]
+WantedBy=multi-user.target
