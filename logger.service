@@ -3,11 +3,11 @@ Description=Python script for logging data from epever controller
 After=network.target
 
 [Service]
-ExecStart=/home/stu/battery_logger.py
+ExecStart=/home/stu/tacoma_data_logger/bin/python3 /home/stu/tacoma_data_logger/battery_logger.py
 Restart=always
 RestartSec=5
 User=stu
-WorkingDirectory=/home/stu/
+WorkingDirectory=/home/stu/tacoma_data_logger/
 Environment="PYTHONBUFFERED=1"
 
 [Install]
