@@ -53247,3 +53247,5 @@
 03/04/2025 07:58:38 PM: DB entry successful
 03/04/2025 07:59:38 PM: Problem reading battery data into dict: (5, 'Input/output error')
 03/04/2025 07:59:38 PM: DB entry successful
+03/05/2025 06:49:34 PM: Error: [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'. Problem initializing connection with charge controller...exiting.
+03/05/2025 06:53:03 PM: DB entry successful
