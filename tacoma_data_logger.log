@@ -53249,3 +53249,8 @@
 03/04/2025 07:59:38 PM: DB entry successful
 03/05/2025 06:49:34 PM: Error: [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'. Problem initializing connection with charge controller...exiting.
 03/05/2025 06:53:03 PM: DB entry successful
+03/15/2025 07:21:14 AM: DB entry successful
+03/16/2025 08:28:36 PM: Error: [Errno 2] could not open port /dev/ttyUSB1: [Errno 2] No such file or directory: '/dev/ttyUSB1'. Problem initializing connection with charge controller...exiting.
+03/16/2025 08:38:33 PM: Error: [Errno 2] could not open port /dev/ttyUSB1: [Errno 2] No such file or directory: '/dev/ttyUSB1'. Problem initializing connection with charge controller...exiting.
+03/16/2025 08:45:39 PM: Error: [Errno 2] could not open port /dev/ttyUSB1: [Errno 2] No such file or directory: '/dev/ttyUSB1'. Problem initializing connection with charge controller...exiting.
+03/16/2025 08:51:48 PM: Error: [Errno 2] could not open port /dev/ttyUSB1: [Errno 2] No such file or directory: '/dev/ttyUSB1'. Problem initializing connection with charge controller...exiting.
