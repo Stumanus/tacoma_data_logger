@@ -1,11 +1,2 @@
-battery.db
-bin/
-include/
-lib/
-lib64
-pyvenv.cfg
-db_test.py
-test.db
-test.py
-notes.txt
-share/
+# Created by venv; see https://docs.python.org/3/library/venv.html
+*
