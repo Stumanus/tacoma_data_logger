@@ -17,7 +17,7 @@ logger.setLevel(logging.INFO)
 the whole program doesn't hang'''
 
 try:
-    controller = EpeverChargeController('/dev/ttyUSB1',1)
+    controller = EpeverChargeController('/dev/tacomachargecontroller',1)
 except Exception as e:
     logger.info(f'Error: {e}. Problem initializing connection with charge controller...exiting.')
     exit()
