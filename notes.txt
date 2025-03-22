@@ -1,0 +1,30 @@
+Current Functionality:
+    -A systemd service on tacoma initiates a python script, which reads and inserts data into db
+        -Python script reads and inserts data into db, exits, and logs errors and info to file
+        -systemd service restarts on failure, 60 second restart interval
+        -A systemd timer is needed to control the run interval (every 60 seconds) since
+            the python script does not contain while loop
+        -A bash script on homeserver initiates rsync to sync tacoma db to a local db
+            -This also requires a systemd timer, as cron does not allow 5 minute intervals as desired
+
+Current Issues:
+
+To Do:
+DONE    -udev rule
+DONE    -systemd service and timer for remote (tacoma), running successfully every 30s
+DONE    -systemd servie / timer to run syncdb script (homeserver)
+    - Create visualizations:
+        - Research Vis options (Graphana? Matplotlib? ...)
+        - Integrate with Homeassistant dashboard. 
+
+SETUP INSTRUCTIONS:
+    - remote machine (tacoma):
+        - pull github repo 
+        - symlink logger.service and logger.timer to appropriate systemd directory (what is this?)
+        - systemctl enable + start logger.service
+
+    - local machine (homeserver):
+        - pull github repo
+        - symlink syncdb script into PATH
+        - symlink syncdb.service, syncdb.timer into appropriate systemd directory (where?)
+        - systemctl enable + start syncdb.service, systemctl daemon-reload
