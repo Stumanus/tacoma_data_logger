@@ -1,0 +1,9 @@
+[Unit]
+Description=timer for logger.service
+
+[Timer]
+OnUnitActiveSec=30s
+OnBootSec=10s
+
+[Install]
+WantedBy=timers.target

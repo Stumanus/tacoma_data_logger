@@ -3,9 +3,8 @@ Description=Python script for logging data from epever controller
 After=multi-user.target
 
 [Service]
+Type=oneshot
 ExecStart=/home/stu/tacoma_data_logger/bin/python3 /home/stu/tacoma_data_logger/battery_logger.py
-Restart=on-failure
-RestartSec=60
 User=stu
 WorkingDirectory=/home/stu/tacoma_data_logger/
 Environment="PYTHONBUFFERED=1"
