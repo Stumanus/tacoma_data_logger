@@ -24,7 +24,7 @@ except Exception as e:
 
 try:
     data = {
-        'unix_time': int(datetime.timestamp()),
+        'unix_time': int(datetime.now().timestamp()),
         'datetime' : str(datetime.now()),
         #Stats:
         'solar_voltage_V' : f'{controller.get_solar_voltage()}',
@@ -40,7 +40,7 @@ try:
     }
     battery_status = controller.get_battery_status()
     equip_data = {
-        'unix_time': int(datetime.timestamp()),
+        'unix_time': int(datetime.now().timestamp()),
         'current_device_time' : f'{controller.get_rtc()}',
         'device_overtemp_status' : f'{controller.is_device_over_temperature()}',
         #Battery Status
@@ -68,7 +68,7 @@ try:
     if 'status' not in tables:
         cur.execute(f'CREATE TABLE status{equip_column_tuple}')
 
-    placeholders = ('?, ' * len(data))[:-2]
+    placeholders = ('?, ' * len(data_tuple))[:-2]
     cur.execute(f'INSERT INTO battery VALUES({placeholders})',data_tuple)
 
     placeholders = ('?, ' * len(equip_data))[:-2]
