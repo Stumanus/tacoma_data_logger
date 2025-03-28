@@ -24,6 +24,7 @@ except Exception as e:
 
 try:
     data = {
+        'unix_time': int(datetime.timestamp()),
         'datetime' : str(datetime.now()),
         #Stats:
         'solar_voltage_V' : f'{controller.get_solar_voltage()}',
@@ -39,6 +40,7 @@ try:
     }
     battery_status = controller.get_battery_status()
     equip_data = {
+        'unix_time': int(datetime.timestamp()),
         'current_device_time' : f'{controller.get_rtc()}',
         'device_overtemp_status' : f'{controller.is_device_over_temperature()}',
         #Battery Status
