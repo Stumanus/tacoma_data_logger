@@ -13,9 +13,13 @@ To Do:
 DONE    -udev rule
 DONE    -systemd service and timer for remote (tacoma), running successfully every 30s
 DONE    -systemd servie / timer to run syncdb script (homeserver)
-    - Create visualizations:
-        - Research Vis options (Graphana? Matplotlib? ...)
+DONE    - Create visualizations:
+DONE    - Research Vis options (Graphana? Matplotlib? ...)
         - Integrate with Homeassistant dashboard. 
+    -Need to mess with smoothing some of the data with a rolling average
+        which would make the grafana graphs more readable potentially. 
+    -Would be cool to find a way to rsync to server via my phone (termux background process) and vpn
+
 
 SETUP INSTRUCTIONS:
     - remote machine (tacoma):

@@ -13,9 +13,6 @@ file_handler.setFormatter(logging.Formatter('%(asctime)s: %(message)s', datefmt=
 logger.addHandler(file_handler)
 logger.setLevel(logging.INFO)
 
-'''Add some retry logic to deal with situations where the comm cable becomes disconnected and then plugged back in so
-the whole program doesn't hang'''
-
 try:
     controller = EpeverChargeController('/dev/tacomachargecontroller',1)
 except Exception as e:
@@ -23,8 +20,9 @@ except Exception as e:
     exit()
 
 try:
+    unix_time = int(datetime.now().timestamp()),
     data = {
-        'unix_time': int(datetime.now().timestamp()),
+        'unix_time': unix_time
         'datetime' : str(datetime.now()),
         #Stats:
         'solar_voltage_V' : f'{controller.get_solar_voltage()}',
@@ -40,7 +38,7 @@ try:
     }
     battery_status = controller.get_battery_status()
     equip_data = {
-        'unix_time': int(datetime.now().timestamp()),
+        'unix_time': unix_time
         'current_device_time' : f'{controller.get_rtc()}',
         'device_overtemp_status' : f'{controller.is_device_over_temperature()}',
         #Battery Status
