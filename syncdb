@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REMOTE_HOST="192.168.0.139"
+REMOTE_HOST="192.168.0.27"
 REMOTE_DB_PATH="/home/stu/tacoma_data_logger/battery.db"
 LOCAL_DB_PATH="/home/stu/battery.db"
 LOG_FILE="/home/stu/battery.log"

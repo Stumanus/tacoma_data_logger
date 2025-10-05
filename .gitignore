@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 battery.db
 bin/
 include/
 lib/
 lib64
 pyvenv.cfg
-db_test.py
-test.db
-test.py
 share/
 tacoma_data_logger.log
 notes.txt

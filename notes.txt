@@ -15,9 +15,9 @@ DONE    -systemd service and timer for remote (tacoma), running successfully eve
 DONE    -systemd servie / timer to run syncdb script (homeserver)
 DONE    - Create visualizations:
 DONE    - Research Vis options (Graphana? Matplotlib? ...)
-        - Integrate with Homeassistant dashboard. 
-    -Need to mess with smoothing some of the data with a rolling average
-        which would make the grafana graphs more readable potentially. 
+DONE    - Integrate with Homeassistant dashboard. 
+DONE    -Need to mess with smoothing some of the data with a rolling average
+             which would make the grafana graphs more readable potentially. 
     -Would be cool to find a way to rsync to server via my phone (termux background process) and vpn
 
 
@@ -26,9 +26,11 @@ SETUP INSTRUCTIONS:
         - pull github repo 
         - symlink logger.service and logger.timer to appropriate systemd directory (what is this?)
         - systemctl enable + start logger.service
+        - NEED TO ADD SSH INSTRUCTIONS: passwordless ssh login
 
     - local machine (homeserver):
         - pull github repo
         - symlink syncdb script into PATH
         - symlink syncdb.service, syncdb.timer into appropriate systemd directory (where?)
         - systemctl enable + start syncdb.service, systemctl daemon-reload
+        - NEED TO ADD SSH INSTRUCTIONS: passwordless ssh login

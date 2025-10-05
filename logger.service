@@ -4,10 +4,9 @@ After=multi-user.target
 
 [Service]
 Type=oneshot
-ExecStart=/home/stu/tacoma_data_logger/bin/python3 /home/stu/tacoma_data_logger/battery_logger.py
+ExecStart=/usr/local/bin/syncdb
 User=stu
-WorkingDirectory=/home/stu/tacoma_data_logger/
-Environment="PYTHONBUFFERED=1"
+WorkingDirectory=/usr/local/bin/
 
 [Install]
 WantedBy=multi-user.target
