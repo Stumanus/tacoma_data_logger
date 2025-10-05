@@ -1,0 +1,12 @@
+[Unit]
+Description=Runs syncdb
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/syncdb
+User=stu
+WorkingDirectory=/usr/local/bin/
+
+[Install]
+WantedBy=multi-user.target
