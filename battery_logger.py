@@ -16,13 +16,13 @@ logger.setLevel(logging.INFO)
 try:
     controller = EpeverChargeController('/dev/tacomachargecontroller',1)
 except Exception as e:
-    logger.info(f'Error: {e}. Problem initializing connection with charge controller...exiting.')
+    logger.info(f'Error: {e}. USB serial device may not found...exiting.')
     exit()
 
 try:
-    unix_time = int(datetime.now().timestamp()),
+    unix_time = int(datetime.now().timestamp())
     data = {
-        'unix_time': unix_time
+        'unix_time': unix_time,
         'datetime' : str(datetime.now()),
         #Stats:
         'solar_voltage_V' : f'{controller.get_solar_voltage()}',
@@ -37,18 +37,34 @@ try:
         'battery_soc_%' : f'{controller.get_battery_state_of_charge()}'
     }
     battery_status = controller.get_battery_status()
+    charging_equipment_status = controller.get_charging_equipment_status()
     equip_data = {
-        'unix_time': unix_time
+        'unix_time': unix_time,
         'current_device_time' : f'{controller.get_rtc()}',
-        'device_overtemp_status' : f'{controller.is_device_over_temperature()}',
         #Battery Status
+        'device_overtemp_status' : f'{controller.is_device_over_temperature()}',
         'wrong_id_for_rated_voltage' : battery_status['wrong_identifaction_for_rated_voltage'],
         'battery_inner_resistance_abnormal' : battery_status['battery_inner_resistence_abnormal'],
         'temperature_warning_status' : battery_status['temperature_warning_status'],
-        'battery_status' : battery_status['battery_status']
+        'battery_status' : battery_status['battery_status'],
+        #Charging Equipment Status
+        'input_voltage_status' : charging_equipment_status['input_voltage_status'],
+        'charging_mosfet_is_short_circuit' : charging_equipment_status['charging_mosfet_is_short_circuit'],
+        'charging_or_anti_reverse_mosfet_is_open_circuit' : charging_equipment_status['charging_or_anti_reverse_mosfet_is_open_circuit'],
+        'anti_reverse_mosfet_is_short_circuit' : charging_equipment_status['anti_reverse_mosfet_is_short_circuit'],
+        'input_over_current' : charging_equipment_status['input_over_current'],
+        'load_short_circuit' : charging_equipment_status['load_short_circuit'],
+        'load_mosfet_short_circuit' : charging_equipment_status['load_mosfet_short_circuit'],
+        'disequilibrium_in_three_circuits': charging_equipment_status['disequilibrium_in_three_circuits'],
+        'pv_input_short_circuit' : charging_equipment_status['pv_input_short_circuit'],
+        'charging_status' : charging_equipment_status['charging_status'],
+        'fault' : charging_equipment_status['fault'],
+        'running' : charging_equipment_status['running']
     }
+
 except Exception as e:
     logger.info(f'Problem reading battery data into dict: {e}')
+    exit() 
 
 try:
     data_tuple = tuple(list(data.values()))
