@@ -1,6 +1,6 @@
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 import mariadb
 from epevermodbus.driver import EpeverChargeController
 import logging
@@ -21,9 +21,11 @@ except Exception as e:
 
 try:
     unix_time = int(datetime.now().timestamp())
+    #Convert to UTC time:
+    date_time = datetime.now()+timedelta(hours=7, minutes=0)
     data = {
-        'unix_time ': str(unix_time),
-        'date_time ' : str(datetime.now()),
+        'unix_time ': unix_time,
+        'date_time ' : date_time,
         #Stats:
         'solar_voltage_V ' : f'{controller.get_solar_voltage()}',
         'solar_current_A ' : f'{controller.get_solar_current()}',
@@ -40,8 +42,9 @@ try:
     battery_status = controller.get_battery_status()
     charging_equipment_status = controller.get_charging_equipment_status()
     equip_data = {
-        'unix_time ': unix_time,
-        'current_device_time ' : f'{controller.get_rtc()}',
+        'unix_time': unix_time,
+        'date_time': date_time,
+    #    'current_device_time ' : f'{controller.get_rtc()}',
         #Battery Status
         'device_overtemp_status' : f'{controller.is_device_over_temperature()}',
         'wrong_id_for_rated_voltage' : battery_status['wrong_identifaction_for_rated_voltage'],
@@ -68,30 +71,25 @@ except Exception as e:
     exit() 
 
 try:
-    ''' Need to update this code to remove all ' characters around keys,
-    causing INSERT failure due to syntax, should be INSERT INTO table (unix_time INT, blahblah DATETIME, etc.;)
-    '''
     data_tuple = tuple(list(data.values()))
-
     equip_data_tuple = tuple(list(equip_data.values()))
 
     connection_params = {
             'user' : 'stu',
-            'password' : '',
+            'password' : 'kukaww',
             'host' : 'localhost',
             'database' : 'tacoma_grid'
             }
-    
     connection = mariadb.connect(**connection_params)
     cursor = connection.cursor()
     cursor.execute('SHOW TABLES;')
     result = cursor.fetchall()
     tables = [x[0] for x in result]
     if 'battery' not in tables:
-        cursor.execute(f'CREATE TABLE battery (unix_time INT, date_time DATETIME, solar_voltage_V FLOAT, solar_current_A FLOAT, solar_power_W FLOAT, load_voltage_V FLOAT, load_current_A FLOAT, load_power_W FLOAT, battery_voltage_V FLOAT, battery_current_A FLOAT, battery_power_W FLOAT, battery_soc_percent INT)')
+        cursor.execute(f'CREATE TABLE battery (unix_time INT, date_time TIMESTAMP, solar_voltage_V FLOAT, solar_current_A FLOAT, solar_power_W FLOAT, load_voltage_V FLOAT, load_current_A FLOAT, load_power_W FLOAT, battery_voltage_V FLOAT, battery_current_A FLOAT, battery_power_W FLOAT, battery_soc_percent INT)')
         
     if 'status' not in tables:
-        cursor.execute(f'CREATE TABLE status (unix_time INT, current_device_time DATETIME, device_overtemp_status TEXT, wrong_id_for_rated_voltage TINYINT, battery_inner_resistance_abnormal TINYINT, temperature_warning_status TEXT, battery_status TEXT, input_voltage_status TEXT, charging_mosfet_is_short_circuit TINYINT, charging_or_anti_reverse_mosfet_is_open_circuit TINYINT, anti_reverse_mosfet_is_short_circuit TINYINT, input_over_current TINYINT, load_short_circuit TINYINT, load_mosfet_short_circuit TINYINT, disequilibrium_in_three_circuits TINYINT, pv_input_short_circuit TINYINT, charging_status TEXT, fault TINYINT, running TINYINT)')
+        cursor.execute(f'CREATE TABLE status (unix_time INT, date_time TIMESTAMP, device_overtemp_status TEXT, wrong_id_for_rated_voltage TINYINT, battery_inner_resistance_abnormal TINYINT, temperature_warning_status TEXT, battery_status TEXT, input_voltage_status TEXT, charging_mosfet_is_short_circuit TINYINT, charging_or_anti_reverse_mosfet_is_open_circuit TINYINT, anti_reverse_mosfet_is_short_circuit TINYINT, input_over_current TINYINT, load_short_circuit TINYINT, load_mosfet_short_circuit TINYINT, disequilibrium_in_three_circuits TINYINT, pv_input_short_circuit TINYINT, charging_status TEXT, fault TINYINT, running TINYINT)')
         
    
     placeholders = '(' + "".join('?,' * len(data_tuple))[:-1] + ')'

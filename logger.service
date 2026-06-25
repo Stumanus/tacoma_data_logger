@@ -2,7 +2,7 @@
 After=multi-user.target
 
 [Service]
-ExecStart=/home/stu/tacoma_data_logger/bin/python3 /home/stu/tacoma_data_logger/battery_logger.py
+ExecStart=/home/stu/tacoma_data_logger/bin/python3 /home/stu/tacoma_data_logger/mdb_battery_logger.py
 Restart=on-failure
 RestartSec=60
 User=stu
